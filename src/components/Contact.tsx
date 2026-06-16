@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Mail, CheckCircle, AlertTriangle } from 'lucide-react';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 
 const GithubIcon = ({ className, size = 16 }: { className?: string; size?: number }) => (
   <svg 
@@ -58,6 +58,8 @@ export default function Contact() {
     
     setIsSubmitting(true);
     
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
+    
     // Send email using EmailJS
     const templateParams = {
       from_name: formData.name,
@@ -69,8 +71,7 @@ export default function Contact() {
     emailjs.send(
       process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
       process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
-      templateParams,
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ''
+      templateParams
     )
     .then((result) => {
       setIsSubmitting(false);
