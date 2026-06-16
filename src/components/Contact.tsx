@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Mail, CheckCircle, AlertTriangle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
@@ -50,6 +50,16 @@ export default function Contact() {
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  
+  useEffect(() => {
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    if (publicKey) {
+      emailjs.init(publicKey);
+      console.log('EmailJS initialized successfully');
+    } else {
+      console.error('EmailJS public key not found in environment variables');
+    }
+  }, []);
 
   // Form Submit handler
   const handleSubmit = (e: React.FormEvent) => {
@@ -57,8 +67,6 @@ export default function Contact() {
     if (!formData.name || !formData.email || !formData.message) return;
     
     setIsSubmitting(true);
-    
-    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
     
     // Send email using EmailJS
     const templateParams = {
@@ -68,20 +76,29 @@ export default function Contact() {
       to_name: 'Anu Prakash',
     };
 
-    emailjs.send(
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '',
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '',
-      templateParams
-    )
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+
+    console.log('Sending email with:', { serviceId, templateId });
+
+    if (!serviceId || !templateId) {
+      console.error('Missing EmailJS configuration:', { serviceId, templateId });
+      setIsSubmitting(false);
+      alert('Email service not configured properly. Please contact the administrator.');
+      return;
+    }
+
+    emailjs.send(serviceId, templateId, templateParams)
     .then((result) => {
+      console.log('Email sent successfully:', result);
       setIsSubmitting(false);
       setSubmitSuccess(true);
       setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setSubmitSuccess(false), 5000);
     })
     .catch((error) => {
-      setIsSubmitting(false);
       console.error('EmailJS error:', error);
+      setIsSubmitting(false);
       const errorMessage = error.text || error.message || JSON.stringify(error);
       alert(`Failed to send message: ${errorMessage}. Please try again.`);
     });
