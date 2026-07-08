@@ -57,7 +57,7 @@ export default function Contact() {
       emailjs.init(publicKey);
       console.log('EmailJS initialized successfully');
     } else {
-      console.error('EmailJS public key not found in environment variables');
+      console.log('EmailJS public key not found in environment variables');
     }
   }, []);
 

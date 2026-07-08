@@ -34,7 +34,7 @@ export default function About() {
   const strengths = [
     {
       icon: Award,
-      title: "1.6+ Years Experience",
+      title: "2+ Years Experience",
       desc: "Delivering polished mobile applications in startup ecosystems.",
       color: "from-blue-500 to-cyan-500",
     },
