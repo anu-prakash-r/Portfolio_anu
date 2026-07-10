@@ -131,7 +131,7 @@ export default function Hero() {
 
             {/* Download Resume / CV Button */}
             <a
-              href="/resume_anu.pdf"
+              href="/Resume_Anu_Prakash.pdf"
               download
               className="group flex items-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/5 text-sm font-semibold hover:bg-white/10 hover:border-white/20 transition-all duration-300 shadow-lg cursor-pointer"
             >
