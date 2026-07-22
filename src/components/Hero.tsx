@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Send, FileText, ArrowRight, Signal, Wifi, Battery, MessageSquare, Trophy, Flame, ShieldAlert, Heart, Star } from 'lucide-react';
+import { Send, FileText, ArrowRight, Signal, Wifi, Battery, MessageSquare, Trophy, Flame, ShieldAlert, Heart, Star, Radio, Play, Pause, SkipForward, SkipBack, Volume2, Music, User, Settings, Home, Bell, Clock, BarChart3, MapPin, Calendar } from 'lucide-react';
 
 // Typewriter strings
 const words = ['React Native Specialist', 'Mobile UI/UX Expert', 'Cross-Platform Developer', 'Vibe Coder'];
@@ -48,7 +48,7 @@ export default function Hero() {
   // Rotate screen inside iPhone every 4 seconds
   useEffect(() => {
     const screenInterval = setInterval(() => {
-      setActiveScreen((prev) => (prev + 1) % 3);
+      setActiveScreen((prev) => (prev + 1) % 7);
     }, 4000);
     return () => clearInterval(screenInterval);
   }, []);
@@ -328,6 +328,257 @@ export default function Hero() {
                           <MessageSquare size={9} /> 12
                         </span>
                       </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeScreen === 3 && (
+                  <motion.div 
+                    key="screen-fm"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="flex-1 flex flex-col p-4 space-y-4"
+                  >
+                    {/* Header */}
+                    <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                      <div className="flex items-center gap-2">
+                        <Radio size={14} className="text-purple-500 fill-purple-500/20" />
+                        <div>
+                          <p className="text-[11px] font-bold">FM Radio</p>
+                          <p className="text-[8px] text-zinc-500">Live Broadcast</p>
+                        </div>
+                      </div>
+                      <div className="px-2 py-0.5 rounded-full bg-green-500/10 border border-green-500/30">
+                        <p className="text-[7px] text-green-400 font-semibold">ON AIR</p>
+                      </div>
+                    </div>
+
+                    {/* Frequency Display */}
+                    <div className="flex flex-col items-center py-4 space-y-2">
+                      <div className="text-4xl font-bold text-white tracking-wider font-mono">
+                        98.5
+                      </div>
+                      <div className="text-[9px] text-zinc-500 uppercase tracking-widest">MHz</div>
+                      <div className="text-[10px] text-purple-400 font-medium mt-1">Vibe FM - Hits & Chill</div>
+                    </div>
+
+                    {/* Visualizer Bars */}
+                    <div className="flex items-end justify-center gap-1 h-12 px-4">
+                      {[40, 65, 45, 80, 55, 90, 70, 50, 85, 60, 75, 45].map((height, idx) => (
+                        <motion.div
+                          key={idx}
+                          animate={{
+                            height: [`${height}%`, `${height * 0.6}%`, `${height}%`],
+                          }}
+                          transition={{
+                            duration: 0.8,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: idx * 0.05,
+                          }}
+                          className="w-1.5 bg-gradient-to-t from-purple-600 to-pink-500 rounded-full"
+                        />
+                      ))}
+                    </div>
+
+                    {/* Audio Controls */}
+                    <div className="flex items-center justify-between px-4 pt-2">
+                      <SkipBack size={18} className="text-zinc-400 hover:text-white transition-colors cursor-pointer" />
+                      <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 transition-transform">
+                        <Pause size={20} className="text-black fill-black" />
+                      </div>
+                      <SkipForward size={18} className="text-zinc-400 hover:text-white transition-colors cursor-pointer" />
+                    </div>
+
+                    {/* Volume & Info */}
+                    <div className="flex items-center justify-between px-4 pt-2">
+                      <div className="flex items-center gap-2">
+                        <Volume2 size={14} className="text-zinc-500" />
+                        <div className="w-20 h-1 bg-zinc-800 rounded-full overflow-hidden">
+                          <div className="w-3/4 h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" />
+                        </div>
+                      </div>
+                      <div className="text-[8px] text-zinc-500">
+                        Now Playing: Midnight City
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeScreen === 4 && (
+                  <motion.div 
+                    key="screen-music"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="flex-1 flex flex-col p-4 space-y-4"
+                  >
+                    {/* Header */}
+                    <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                      <div className="flex items-center gap-2">
+                        <Music size={14} className="text-pink-500 fill-pink-500/20" />
+                        <div>
+                          <p className="text-[11px] font-bold">Now Playing</p>
+                          <p className="text-[8px] text-zinc-500">From Playlist: Chill Vibes</p>
+                        </div>
+                      </div>
+                      <Heart size={14} className="text-pink-500 fill-pink-500" />
+                    </div>
+
+                    {/* Album Art */}
+                    <div className="flex-1 flex flex-col items-center justify-center py-4">
+                      <div className="w-full h-32 rounded-2xl bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-500 shadow-2xl flex items-center justify-center relative overflow-hidden">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(255,255,255,0.2),_transparent)]" />
+                        <Music size={40} className="text-white/80" />
+                      </div>
+                      <div className="mt-4 text-center">
+                        <p className="text-[12px] font-bold text-white">Blinding Lights</p>
+                        <p className="text-[9px] text-zinc-400">The Weeknd</p>
+                      </div>
+                    </div>
+
+                    {/* Progress Bar */}
+                    <div className="px-2">
+                      <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div className="w-2/3 h-full bg-gradient-to-r from-pink-500 to-purple-500 rounded-full" />
+                      </div>
+                      <div className="flex justify-between text-[8px] text-zinc-500 mt-1">
+                        <span>2:34</span>
+                        <span>3:45</span>
+                      </div>
+                    </div>
+
+                    {/* Controls */}
+                    <div className="flex items-center justify-between px-4">
+                      <SkipBack size={18} className="text-zinc-400 hover:text-white transition-colors cursor-pointer" />
+                      <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 transition-transform">
+                        <Pause size={22} className="text-black fill-black" />
+                      </div>
+                      <SkipForward size={18} className="text-zinc-400 hover:text-white transition-colors cursor-pointer" />
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeScreen === 5 && (
+                  <motion.div 
+                    key="screen-profile"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="flex-1 flex flex-col p-4 space-y-4"
+                  >
+                    {/* Header */}
+                    <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                      <span className="text-[11px] font-bold">Profile</span>
+                      <Settings size={14} className="text-zinc-400" />
+                    </div>
+
+                    {/* Profile Card */}
+                    <div className="flex flex-col items-center py-3">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                        AP
+                      </div>
+                      <p className="text-[12px] font-bold text-white mt-2">Anu Prakash</p>
+                      <p className="text-[9px] text-zinc-400">@anuprakash_dev</p>
+                      <div className="flex gap-4 mt-3">
+                        <div className="text-center">
+                          <p className="text-[11px] font-bold text-white">24</p>
+                          <p className="text-[7px] text-zinc-500">Projects</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-[11px] font-bold text-white">1.2K</p>
+                          <p className="text-[7px] text-zinc-500">Followers</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-[11px] font-bold text-white">89</p>
+                          <p className="text-[7px] text-zinc-500">Following</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Menu Items */}
+                    <div className="flex flex-col space-y-2">
+                      {[
+                        { icon: Bell, label: 'Notifications', color: 'text-blue-400' },
+                        { icon: Calendar, label: 'Schedule', color: 'text-green-400' },
+                        { icon: MapPin, label: 'Location', color: 'text-red-400' },
+                        { icon: User, label: 'Account Settings', color: 'text-purple-400' },
+                      ].map((item, idx) => (
+                        <div 
+                          key={idx}
+                          className="flex items-center gap-3 p-2.5 rounded-xl bg-zinc-900/50 border border-white/5 hover:bg-zinc-900/80 transition-colors cursor-pointer"
+                        >
+                          <item.icon size={14} className={item.color} />
+                          <span className="text-[10px] text-white/90">{item.label}</span>
+                          <ArrowRight size={10} className="ml-auto text-zinc-600" />
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {activeScreen === 6 && (
+                  <motion.div 
+                    key="screen-dashboard"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    className="flex-1 flex flex-col p-4 space-y-3"
+                  >
+                    {/* Header */}
+                    <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                      <div className="flex items-center gap-2">
+                        <Home size={14} className="text-blue-500" />
+                        <span className="text-[11px] font-bold">Dashboard</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock size={10} className="text-zinc-500" />
+                        <span className="text-[8px] text-zinc-500">Today</span>
+                      </div>
+                    </div>
+
+                    {/* Stats Cards */}
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/20">
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <BarChart3 size={12} className="text-blue-400" />
+                          <span className="text-[8px] text-zinc-400">Revenue</span>
+                        </div>
+                        <p className="text-[13px] font-bold text-white">$12.4K</p>
+                        <p className="text-[7px] text-green-400">+23.5%</p>
+                      </div>
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/20">
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <Trophy size={12} className="text-purple-400" />
+                          <span className="text-[8px] text-zinc-400">Tasks</span>
+                        </div>
+                        <p className="text-[13px] font-bold text-white">89/100</p>
+                        <p className="text-[7px] text-zinc-400">89% done</p>
+                      </div>
+                    </div>
+
+                    {/* Activity List */}
+                    <div className="flex-1 flex flex-col space-y-2">
+                      <p className="text-[9px] text-zinc-500 font-semibold">Recent Activity</p>
+                      {[
+                        { title: 'Project Alpha', time: '2h ago', icon: '🚀', color: 'bg-blue-500/10' },
+                        { title: 'Meeting with Team', time: '4h ago', icon: '👥', color: 'bg-purple-500/10' },
+                        { title: 'Code Review', time: '6h ago', icon: '✅', color: 'bg-green-500/10' },
+                      ].map((activity, idx) => (
+                        <div 
+                          key={idx}
+                          className="flex items-center gap-2.5 p-2 rounded-lg bg-zinc-900/50 border border-white/5"
+                        >
+                          <div className={`w-7 h-7 rounded-lg ${activity.color} flex items-center justify-center text-xs`}>
+                            {activity.icon}
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-[9px] text-white/90 font-medium">{activity.title}</p>
+                            <p className="text-[7px] text-zinc-500">{activity.time}</p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </motion.div>
                 )}
