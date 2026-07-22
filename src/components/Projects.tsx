@@ -2,14 +2,23 @@
 
 import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { ExternalLink, MessageSquare, Trophy, ShieldAlert, Laptop, Users, BarChart3, Radio, Lock } from 'lucide-react';
-
-
+import { ExternalLink, MessageSquare, Trophy, ShieldAlert, Laptop, Users, BarChart3, Radio, Lock, Play, Pause, Clock, Mic } from 'lucide-react';
 
 // Define categories
 type Category = 'all' | 'mobile' | 'web';
 
 const projectsData = [
+  {
+    id: 'gilli-fm',
+    category: 'mobile',
+    title: 'Gilli FM',
+    subtitle: 'Streaming Application',
+    description: 'A comprehensive radio streaming application featuring live radio playback, dynamic show schedules, RJ profiles, community features, and optimized audio streaming with background playback support.',
+    technologies: ['React Native', 'Expo', 'TypeScript', 'Audio Streaming', 'Redux'],
+    playStore: 'https://play.google.com/store/apps/details?id=com.botagentica.radioradioapp&pcampaignid=web_share',
+    appStore: 'https://apps.apple.com/in/app/gillifm/id6755385389',
+    type: 'mobile',
+  },
   {
     id: 'karma-league',
     category: 'mobile',
@@ -60,8 +69,6 @@ export default function Projects() {
   const handleDashMouseLeave = () => {
     setDashTilt({ x: 0, y: 0 });
   };
-
-
 
   const filteredProjects = projectsData.filter((p) => {
     if (activeCategory === 'all') return true;
@@ -114,8 +121,151 @@ export default function Projects() {
 
         {/* Category Showcases Container */}
         <div className="space-y-24">
-          
-          {/* SHOWCASE 1: Karma League (Mobile Showcase) */}
+
+          {/* SHOWCASE 1: Gilli FM (Mobile Showcase) */}
+          {(activeCategory === 'all' || activeCategory === 'mobile') && (
+            <motion.div
+              initial={{ opacity: 0, y: 45 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+            >
+              {/* Left Column: Details */}
+              <div className="col-span-1 lg:col-span-6 space-y-6">
+                <div className="space-y-2">
+                  <span className="text-xs font-bold font-mono text-red-500 uppercase tracking-wider">Streaming Application</span>
+                  <h3 className="text-2xl md:text-3xl font-extrabold text-white">Gilli FM</h3>
+                </div>
+                <p className="text-zinc-400 text-sm leading-relaxed font-light">
+                  A comprehensive radio streaming application featuring live radio playback, dynamic show schedules, RJ profiles, community features, and optimized audio streaming with background playback support.
+                </p>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {['React Native', 'Expo', 'TypeScript', 'Audio Streaming', 'Redux'].map((tech) => (
+                    <span key={tech} className="px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[10px] text-zinc-300 font-mono">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex items-center gap-3 pt-2">
+                  <a
+                    href={projectsData.find(p => p.id === 'gilli-fm')?.playStore}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-semibold text-zinc-300 hover:text-white transition-all"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                      <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
+                    </svg>
+                    <span>Play Store</span>
+                  </a>
+                  <a
+                    href={projectsData.find(p => p.id === 'gilli-fm')?.appStore}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-semibold text-zinc-300 hover:text-white transition-all"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                      <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z" />
+                    </svg>
+                    <span>App Store</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Column: Dynamic Overlapping Phone Screen Stack */}
+              <div className="col-span-1 lg:col-span-6 flex justify-center items-center h-[320px] relative mt-8 lg:mt-0 select-none">
+
+                {/* Live Radio Player Card */}
+                <motion.div
+                  whileHover={{ scale: 1.05, zIndex: 30 }}
+                  className="absolute left-[5%] md:left-[15%] top-0 w-[190px] h-[260px] rounded-2xl glass-card border border-white/10 shadow-[0_15px_30px_rgba(0,0,0,0.8)] p-3.5 flex flex-col justify-between"
+                  style={{ rotate: '-6deg', transformOrigin: 'bottom center' }}
+                >
+                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <span className="text-[10px] font-bold flex items-center gap-1.5"><Radio size={11} className="text-red-400" /> Live Radio</span>
+                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  </div>
+                  <div className="flex-1 flex flex-col items-center justify-center py-4">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center mb-3">
+                      <Radio size={32} className="text-white" />
+                    </div>
+                    <p className="text-[10px] font-bold text-white">Gilli FM 98.3</p>
+                    <p className="text-[8px] text-zinc-400 mt-1">Now Playing</p>
+                    <div className="flex items-center gap-2 mt-3">
+                      <Play size={14} className="text-white" />
+                      <div className="w-16 h-1 bg-white/20 rounded-full overflow-hidden">
+                        <div className="w-3/4 h-full bg-red-500 rounded-full" />
+                      </div>
+                      <span className="text-[7px] text-zinc-400">3:45</span>
+                    </div>
+                  </div>
+                  <div className="text-center text-[7px] text-zinc-500">Live • 12.5K listeners</div>
+                </motion.div>
+
+                {/* Show Schedule Card (Centered & Highlighted) */}
+                <motion.div
+                  whileHover={{ scale: 1.05, zIndex: 30 }}
+                  className="absolute left-[30%] md:left-[38%] top-[-20px] w-[200px] h-[280px] rounded-2xl bg-zinc-900/90 border border-white/15 shadow-[0_20px_45px_rgba(0,0,0,0.9)] p-4 flex flex-col justify-between z-10"
+                  style={{ rotate: '2deg' }}
+                >
+                  <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                    <span className="text-[10px] font-bold flex items-center gap-1.5"><Clock size={11} className="text-blue-400" /> Schedule</span>
+                    <span className="text-[8px] text-zinc-500">Today</span>
+                  </div>
+                  <div className="space-y-2 py-3 flex-1">
+                    {[
+                      { time: '09:00', show: 'Morning Vibes', dj: 'RJ Sarah' },
+                      { time: '12:00', show: 'Lunch Hits', dj: 'RJ Mike' },
+                      { time: '15:00', show: 'Afternoon Flow', dj: 'RJ Emma' },
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.03] border border-white/5">
+                        <span className="text-[8px] font-mono text-blue-400">{item.time}</span>
+                        <div className="flex-1">
+                          <p className="text-[8px] text-white font-medium">{item.show}</p>
+                          <p className="text-[7px] text-zinc-500">{item.dj}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-center text-[7px] text-zinc-500 tracking-wider">View full schedule</div>
+                </motion.div>
+
+                {/* RJ Profile Card */}
+                <motion.div
+                  whileHover={{ scale: 1.05, zIndex: 30 }}
+                  className="absolute right-[5%] md:right-[15%] top-[10px] w-[190px] h-[260px] rounded-2xl glass-card border border-white/10 shadow-[0_15px_30px_rgba(0,0,0,0.8)] p-3.5 flex flex-col justify-between"
+                  style={{ rotate: '8deg', transformOrigin: 'bottom center' }}
+                >
+                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <span className="text-[10px] font-bold flex items-center gap-1.5"><Mic size={11} className="text-purple-400" /> RJ Profile</span>
+                  </div>
+                  <div className="flex-1 py-3 flex flex-col items-center">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-2">
+                      <Mic size={20} className="text-white" />
+                    </div>
+                    <p className="text-[10px] font-bold text-white">RJ Sarah</p>
+                    <p className="text-[8px] text-zinc-400 mb-2">Morning Show Host</p>
+                    <div className="flex gap-1">
+                      <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-[7px] text-purple-300">Pop</span>
+                      <span className="px-2 py-0.5 rounded-full bg-blue-500/20 text-[7px] text-blue-300">Hits</span>
+                    </div>
+                    <div className="mt-3 w-full">
+                      <div className="flex justify-between text-[7px] text-zinc-500 mb-1">
+                        <span>Followers</span>
+                        <span>8.2K</span>
+                      </div>
+                      <div className="w-full h-1 bg-white/10 rounded-full">
+                        <div className="w-3/4 h-full bg-purple-500 rounded-full" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+
+              </div>
+            </motion.div>
+          )}
+
+          {/* SHOWCASE 2: Karma League (Mobile Showcase) */}
           {(activeCategory === 'all' || activeCategory === 'mobile') && (
             <motion.div 
               initial={{ opacity: 0, y: 45 }}
@@ -238,7 +388,6 @@ export default function Projects() {
                     </div>
                   </div>
                 </motion.div>
-
               </div>
             </motion.div>
           )}
@@ -364,11 +513,7 @@ export default function Projects() {
               </div>
             </motion.div>
           )}
-
         </div>
-
-
-
       </div>
     </section>
   );
