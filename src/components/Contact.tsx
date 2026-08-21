@@ -322,9 +322,7 @@ export default function Contact() {
               </AnimatePresence>
             </form>
           </div>
-
         </div>
-
       </div>
     </section>
   );
